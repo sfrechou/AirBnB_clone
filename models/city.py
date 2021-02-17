@@ -7,3 +7,4 @@ class City(BaseModel):
     """ City of the AirBnB """
     state_id = ""
     name = ""
+
