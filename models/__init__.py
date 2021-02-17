@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""SIRNIKOLAX raja de aca"""
+"""raja de aca"""
 from models.engine.file_storage import FileStorage
 
 storage = FileStorage()

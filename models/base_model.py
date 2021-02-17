@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""SIRNIKOLAX raja de aca"""
+"""raja de aca"""
 import uuid
 import datetime
 import csv
