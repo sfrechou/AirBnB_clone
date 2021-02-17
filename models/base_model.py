@@ -21,9 +21,11 @@ class BaseModel:
                         value = datetime.datetime.strptime(value, formatx)
                     setattr(self, key, value)
         else:
+            formatx = "%Y-%m-%dT%H:%M:%S.%f"
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.datetime.now()
-            self.updated_at = datetime.datetime.now()
+            x = datetime.datetime.now()
+            self.created_at = x.strftime(formatx)
+            self.updated_at = x.strftime(formatx)
             storage.new(self)
 
     def __str__(self):
@@ -33,8 +35,11 @@ class BaseModel:
 
     def save(self):
         """Updates the public instance attr with current datetime"""
-        self.updated_at = datetime.datetime.now()
+        formatx = "%Y-%m-%dT%H:%M:%S.%f"
+        x = datetime.datetime.now()
+        self.updated_at = x.strftime(formatx)
         storage.save()
+
 
     def to_dict(self):
         """Returns a dictionary containing all keys/values of __dict__"""
