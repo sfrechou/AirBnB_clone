@@ -136,9 +136,21 @@ class HBNBCommand(cmd.Cmd):
                 value[i[2]] = i[3]
                 return
 
+    def do_count(self, args):
+        """ Prints amount of instances of a class """
+        count = 0
+        if args in self.classes:
+            instances = storage.all()
+            for key in instances.keys():
+                class_n = key.split(".")
+                if class_n[0] == args:
+                    count += 1;
+        print(count)
+
+
     def default(self, args):
         """ Default """
-        functs = {'all': 'do_all', 'show': 'do_show', 'update': 'do_update', 'destroy': 'do_destroy'}
+        functs = {'all': 'do_all', 'show': 'do_show', 'update': 'do_update', 'destroy': 'do_destroy', 'count': 'do_count'}
         splits = args.split(".")
         class_name = splits[0]
         class_name.capitalize()
