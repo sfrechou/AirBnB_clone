@@ -136,6 +136,16 @@ class HBNBCommand(cmd.Cmd):
                 value[i[2]] = i[3]
                 return
 
+    def default(self, args):
+        """ Default """
+        splits = args.split(".")
+        class_name = splits[0]
+        rest = splits[1]
+        no_brace = [b.strip('(') for b in rest]
+        no_brace2 = [b.strip(')') for b in no_brace]
+        argus = join(no_brace2)
+        print(argus)
+        
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

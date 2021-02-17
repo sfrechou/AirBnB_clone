@@ -14,10 +14,11 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key != "__class__":
+                    formatx = "%Y-%m-%dT%H:%M:%S.%f"
                     if key == "created_at":
-                        value = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                        value = datetime.datetime.strptime(value, formatx)
                     if key == "updated_at":
-                        value = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                        value = datetime.datetime.strptime(value, formatx)
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
@@ -37,9 +38,11 @@ class BaseModel:
  
     def to_dict(self):
         """Returns a dictionary containing all keys/values of __dict__"""
-        self.__dict__["__class__"] = self.__class__.__name__
-        self.__dict__["created_at"] = self.created_at.isoformat()
-        self.__dict__["updated_at"] = self.updated_at.isoformat()
-        return self.__dict__
- 
-
+        dict_returned = {}
+        dict_returned["__class__"] = self.__class__.__name__
+        for key, value in self.__dict__.items():
+            if type(value) == datetime.datetime:
+                dict_returned[key] = value.isoformat()
+            else:
+                dict_returned[key] = value
+        return (dict_returned)
