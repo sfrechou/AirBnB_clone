@@ -138,14 +138,35 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, args):
         """ Default """
+        functs = {'all': 'do_all', 'show': 'do_show', 'update': 'do_update', 'destroy': 'do_destroy'}
         splits = args.split(".")
         class_name = splits[0]
-        rest = splits[1]
-        no_brace = [b.strip('(') for b in rest]
-        no_brace2 = [b.strip(')') for b in no_brace]
-        argus = join(no_brace2)
-        print(argus)
-        
+        class_name.capitalize()
+        if class_name in self.classes:
+            rest = splits[1]
+            remove = ['(', ')', ',', '"']
+            for i in remove:
+                rest = rest.replace(i, ' ')
+            elements = rest.split()
+            if len(elements) == 1:
+                for key, value in functs.items():
+                    if key == elements[0]:
+                        funct = 'self.' + value + '("' + class_name + '")'
+                        eval(funct)
+            elif len(elements) == 2:
+                for key, value in functs.items():
+                    if key == elements[0]:
+                        funct = 'self.' + value + '("' + class_name + ' ' + elements[1] + '")'
+                        eval(funct)
+            
+            elif len(elements) >= 4:
+                new = class_name + "," + elements[1] + "," + elements[2] + "," + elements[3]
+                new = new.replace("'", '')
+                new = new.replace(",", " ")
+                self.do_update(new)
+        else:
+            print("*** Unknown syntax: {}".format(args))
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
