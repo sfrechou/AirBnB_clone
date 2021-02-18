@@ -70,18 +70,10 @@ class TestingCity(unittest.TestCase):
         self.assertNotEqual(my_city11.id, my_city12.id)
 
     def test_pep8(self):
-        """pep8 test"""
+        """pep8"""
         style = pep8.StyleGuide(quiet=True)
         result = style.check_files(['models/city.py'])
         self.assertEqual(result.total_errors, 0, "fix pep8")
-
-    def test_City13N(self):
-        """Tests if the instance of BaseModel has been correctly made"""
-        my_City13 = City()
-        self.assertTrue(hasattr(my_City13, "__init__"))
-        self.assertTrue(hasattr(my_City13, "created_at"))
-        self.assertTrue(hasattr(my_City13, "updated_at"))
-        self.assertTrue(hasattr(my_City13, "id"))
 
 if __name__ == "__main__":
     unittest.main()
