@@ -102,7 +102,9 @@ class HBNBCommand(cmd.Cmd):
                     list_obj.append(new_key + " " + str(value))
         else:
             for key, value in new_obj.items():
-                list_obj.append(str(key) + " " + str(value))
+                split_key = key.split(".")
+                new_key = "[" + split_key[0] + "] (" + split_key[1] + ")"
+                list_obj.append(new_key + " " + str(value))
         print(list_obj)
 
     def do_update(self, args):
