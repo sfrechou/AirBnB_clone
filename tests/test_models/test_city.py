@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.city import City
 import models
+import pep8
 
 
 class TestingCity(unittest.TestCase):
@@ -67,6 +68,30 @@ class TestingCity(unittest.TestCase):
         my_city11 = City()
         my_city12 = City()
         self.assertNotEqual(my_city11.id, my_city12.id)
+
+    def test_pep8(self):
+        """pep8 test"""
+        style = pep8.StyleGuide(quiet=True)
+        result = style.check_files(['models/city.py'])
+        self.assertEqual(result.total_errors, 0, "fix pep8")
+
+    def test_City13N(self):
+        """Tests City"""
+        my_City13 = City()
+        self.assertTrue(hasattr(my_City13, "__init__"))
+        self.assertTrue(hasattr(my_City13, "created_at"))
+        self.assertTrue(hasattr(my_City13, "updated_at"))
+        self.assertTrue(hasattr(my_City13, "id"))
+
+    def test_City14N(self):
+        """kwargs coso"""
+        my_City14 = City(name="Denver")
+        self.assertEqual(type(my_City14).__name__, "City")
+        self.assertTrue(hasattr(my_City14, "name"))
+        self.assertFalse(hasattr(my_City14, "id"))
+        self.assertFalse(hasattr(my_City14, "created_at"))
+        self.assertFalse(hasattr(my_City14, "updated_at"))
+        self.assertTrue(hasattr(my_City14, "__class__"))
 
 if __name__ == "__main__":
     unittest.main()
