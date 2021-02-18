@@ -27,6 +27,11 @@ class TestingBaseModel(unittest.TestCase):
         self.assertTrue(type(PreData6), object)
         self.assertEqual(str(type(BaseModel)), "<class 'type'>")
 
+    def test_PreData3(self):
+        """ Test of the PreData """
+        PreData40 = BaseModel(None)
+        self.assertNotIn(None, PreData40.__dict__.values())
+
     def test_Save1(self):
         """ Test of the Save func """
         PreData7 = BaseModel()
