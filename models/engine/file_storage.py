@@ -21,11 +21,6 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def __init__(self):
-        """Initializes instance"""
-        self.__file_path = "file.json"
-        self.__objects = {}
-
     def all(self):
         """Returns the dictionary __objects"""
         return self.__objects
@@ -71,7 +66,7 @@ class FileStorage:
                     j = str(k)
                     new_id = i.split(".")
                     new = "[" + new_id[0] + "] (" + new_id[1] + ")"
-                    self.__objects[i] = new + " " + j
-                    # self.new(eval(new_id[0])(**k))
+                    # self.__objects[i] = new + " " + j
+                    self.new(eval(new_id[0])(**k))
         else:
             return
