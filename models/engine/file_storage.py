@@ -44,8 +44,8 @@ class FileStorage:
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, 'r') as my_file:
                 one_obj_dictionary = json.load(my_file)
+
                 for key, value in one_obj_dictionary.items():
                     self.__objects[key] = value
         else:
             return
-
