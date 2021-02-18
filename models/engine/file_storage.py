@@ -5,12 +5,6 @@ import os
 import datetime
 
 
-def myconverter(o):
-    """converter from datetime to str"""
-    if isinstance(o, datetime.datetime):
-        return o.__str__()
-
-
 class FileStorage:
     """
     Serializes instances to a JSON file and
@@ -19,6 +13,11 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
+
+    def __init__(self):
+        """Initializes instance"""
+        self.__file_path = "file.json"
+        self.__objects = {}
 
     def all(self):
         """Returns the dictionary __objects"""
@@ -32,26 +31,14 @@ class FileStorage:
                        "." + obj.id] = obj.__dict__
 
     def save(self):
-        """Serializes __objects to the JSON file"""
-        new_dict = self.__objects
-        for key, value in new_dict.items():
-            class_name = key.split(".")
-            if type(value) == str:
-                list_val = value.split()
-                del list_val[:2]
-                new_str = ""
-                for ele in list_val:
-                    new_str += ele
-            else:
-                value["__class__"] = class_name[0]
-                new_dict[key] = str(value)
-
-        with open(FileStorage.__file_path, "w") as my_file:
-            json.dump(new_dict, my_file)
-        
+        """serializes __objects to a JSON path from __file_path
+        """
+        new_dict = {}
         for key, value in self.__objects.items():
-            if type(value) == dict:
-                del value["__class__"]
+            new_dict[key] = str(value)
+
+        with open(FileStorage.__file_path, 'w') as filee:
+            json.dump(new_dict, filee)
 
     def reload(self):
         """Deserializes the JSON file to __objects"""

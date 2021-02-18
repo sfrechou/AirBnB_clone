@@ -8,7 +8,7 @@ from models import storage
 
 class BaseModel:
     """Defines all common attributes/methods for other classes"""
-
+ 
     def __init__(self, *args, **kwargs):
         """Initializes object"""
         now = str(datetime.now())
@@ -26,17 +26,17 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             storage.new(self)
-
+ 
     def __str__(self):
         """Returns string representation"""
         return ("[{}] ({}) {}".format(self.__class__.__name__,
                                       self.id, self.__dict__))
-
+ 
     def save(self):
         """Updates the public instance attr with current datetime"""
         self.updated_at = datetime.now()
         storage.save()
-
+ 
     def to_dict(self):
         """Returns a dictionary containing all keys/values of __dict__"""
         dict_returned = {}
