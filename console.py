@@ -156,7 +156,10 @@ class HBNBCommand(cmd.Cmd):
         class_name.capitalize()
         if class_name in self.classes:
             rest = splits[1]
-            remove = ['(', ')', ',', '"']
+            diction = False
+            if any("{" in elem for elem in rest):
+                        diction = True
+            remove = ['(', ')', ',', '"', '{', '}', ':', "'"]
             for i in remove:
                 rest = rest.replace(i, ' ')
             elements = rest.split()
@@ -170,16 +173,37 @@ class HBNBCommand(cmd.Cmd):
                     if key == elements[0]:
                         funct = 'self.' + value + '("' + class_name + ' ' + elements[1] + '")'
                         eval(funct)
-            
-            elif len(elements) >= 4:
-                new = class_name + "," + elements[1] + "," + elements[2] + "," + elements[3]
-                new = new.replace("'", '')
-                new = new.replace(",", " ")
-                self.do_update(new)
+            elif len(elements) >= 3:
+                # if len(elements) == 3:
+                    attrs = elements[2:]
+                    att = 0
+                    val = 1
+                    
+                    for key, value in functs.items():
+                        if key == elements[0]:
+                            for elems in range(len(attrs)):
+                                if diction == False:
+                                    funct = 'self.' + value + '("' + class_name + ' ' + elements[1] + ' ' + attrs[att] + ' ' + attrs[val] + '")'
+                                    eval(funct)
+                                    break
+                                else:
+                                    funct = 'self.' + value + '("' + class_name + ' ' + elements[1] + ' ' + attrs[att] + ' ' + attrs[val] + '")'
+                                    eval(funct)
+                                    if att + 2 < len(attrs):
+                                        att += 2
+                                    else:
+                                        break
+                                    if val + 2 < len(attrs):
+                                        val += 2
+
+                # else:
+                #    new = class_name + "," + elements[1] + "," + elements[2] + "," + elements[3]
+                #    new = new.replace("'", '')
+                #    new = new.replace(",", " ")
+                #    self.do_update(new)
         else:
             print("*** Unknown syntax: {}".format(args))
 
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
-
