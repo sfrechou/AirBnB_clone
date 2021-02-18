@@ -49,6 +49,26 @@ class TestingBaseModel(unittest.TestCase):
         self.assertEqual(PreData9.to_dict()["updated_at"],
                          PreData9.updated_at.isoformat())
 
+    def test_to_Dict2(self):
+        """ Test of the to_dict func """
+        PreData30 = BaseModel()
+        self.assertTrue(dict, type(PreData30.to_dict()))
+
+    def test_to_Dict3(self):
+        PreData31 = BaseModel()
+        with self.assertRaises(TypeError):
+            PreData31.to_dict(None)
+
+    def test_to_Dict4(self):
+        PreData32 = BaseModel()
+        self.assertNotEqual(PreData32.to_dict(), PreData32.__dict__)
+
+    def test_to_Dict5(self):
+        PreData33 = BaseModel()
+        PreData33_dict = PreData33.to_dict()
+        self.assertEqual(str, type(PreData33_dict["created_at"]))
+        self.assertEqual(str, type(PreData33_dict["updated_at"]))
+
     @classmethod
     def setUp(self):
         """ Test of the save func """
