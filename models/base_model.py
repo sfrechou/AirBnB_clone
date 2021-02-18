@@ -16,9 +16,9 @@ class BaseModel:
                 if key != "__class__":
                     formatx = "%Y-%m-%dT%H:%M:%S.%f"
                     if key == "created_at":
-                        value = datetime.datetime.strptime(value, formatx)
+                        self.__dict__[key] = datetime.datetime.strptime(value, formatx)
                     if key == "updated_at":
-                        value = datetime.datetime.strptime(value, formatx)
+                        self.__dict__[key] = datetime.datetime.strptime(value, formatx)
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
@@ -33,16 +33,16 @@ class BaseModel:
  
     def save(self):
         """Updates the public instance attr with current datetime"""
-        self.updated_at = datetime.datetime.now()
+        new_time = datetime.datetime.now()
+        self.updated_at = new_time
         storage.save()
  
     def to_dict(self):
         """Returns a dictionary containing all keys/values of __dict__"""
         dict_returned = {}
-        dict_returned["__class__"] = self.__class__.__name__
         for key, value in self.__dict__.items():
-            if type(value) == datetime.datetime:
-                dict_returned[key] = value.isoformat()
-            else:
-                dict_returned[key] = value
+            dict_returned[key] = value
+        dict_returned["__class__"] = self.__class__.__name__
+        dict_returned["created_at"] = self.created_at.isoformat()
+        dict_returned["updated_at"] = self.updated_at.isoformat()
         return (dict_returned)

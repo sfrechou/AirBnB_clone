@@ -26,27 +26,18 @@ class FileStorage:
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id"""
         # obj.__dict__["updated_at"] = str(obj.__dict__["created_at"])
-        # obj.__dict__["created_at"] = str(obj.__dict__["created_at"])
+        # obj.__dict__["created_at"] = str(obj.__dict__["created_at"]
         self.__objects[str(obj.__class__.__name__) +
-                       "." + obj.id] = obj.__dict__
+                       "." + obj.id] = obj
 
     def save(self):
         """Serializes __objects to the JSON file"""
-        if self.__objects:
-            for key25, value25 in self.__objects.items():
-                newdict = value25.copy()
-                for key225, value225 in newdict.items():
-                    if not value225:
-                        del value25[key225]
-                self.__objects[key25] = value25
-            for key, values in self.__objects.items():
-                for key2, value2 in values.items():
-                    if key2 == "created_at":
-                        values[key2] = str(value2)
-                    elif key2 == "updated_at":
-                        values[key2] = str(value2)
-            with open(self.__file_path, mode='w') as my_file:
-                json.dump(self.__objects, my_file)
+        dict_of_dicts = {}
+        for key, value in self.__objects.items():
+            dict_of_dicts[key] = value.to_dict()
+
+        with open(FileStorage.__file_path, "w") as my_file:
+            json.dump(dict_of_dicts, my_file)
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
