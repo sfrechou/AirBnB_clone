@@ -76,22 +76,12 @@ class TestingCity(unittest.TestCase):
         self.assertEqual(result.total_errors, 0, "fix pep8")
 
     def test_City13N(self):
-        """Tests City"""
+        """Tests if the instance of BaseModel has been correctly made"""
         my_City13 = City()
         self.assertTrue(hasattr(my_City13, "__init__"))
         self.assertTrue(hasattr(my_City13, "created_at"))
         self.assertTrue(hasattr(my_City13, "updated_at"))
         self.assertTrue(hasattr(my_City13, "id"))
-
-    def test_City14N(self):
-        """kwargs coso"""
-        my_City14 = City(name="Denver")
-        self.assertEqual(type(my_City14).__name__, "City")
-        self.assertTrue(hasattr(my_City14, "name"))
-        self.assertFalse(hasattr(my_City14, "id"))
-        self.assertFalse(hasattr(my_City14, "created_at"))
-        self.assertFalse(hasattr(my_City14, "updated_at"))
-        self.assertTrue(hasattr(my_City14, "__class__"))
 
 if __name__ == "__main__":
     unittest.main()
