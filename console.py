@@ -96,11 +96,14 @@ class HBNBCommand(cmd.Cmd):
         if args in self.classes:
             for key, value in new_obj.items():
                 if args in key:
-                    list_obj.append(str(key) + " " + str(value))
+                    split_key = key.split(".")
+                    new_key = "[" + split_key[0] + "] (" + split_key[1] + ")"
+
+                    list_obj.append(new_key + " " + str(value))
         else:
             for key, value in new_obj.items():
                 list_obj.append(str(key) + " " + str(value))
-        print((list_obj))
+        print(list_obj)
 
     def do_update(self, args):
         """
@@ -131,9 +134,9 @@ class HBNBCommand(cmd.Cmd):
             if key == key_search:
                 for key2 in value.keys():
                     if key2 == i[2]:
-                        value[key2] = i[3]
+                        value[key2] = i[3].strip('"')
                         return
-                value[i[2]] = i[3]
+                value[i[2]] = i[3].strip('"')
                 return
 
     def do_count(self, args):
@@ -144,13 +147,13 @@ class HBNBCommand(cmd.Cmd):
             for key in instances.keys():
                 class_n = key.split(".")
                 if class_n[0] == args:
-                    count += 1;
+                    count += 1
         print(count)
-
 
     def default(self, args):
         """ Default """
-        functs = {'all': 'do_all', 'show': 'do_show', 'update': 'do_update', 'destroy': 'do_destroy', 'count': 'do_count'}
+        functs = {'all': 'do_all', 'show': 'do_show', 'update': 'do_update',
+                  'destroy': 'do_destroy', 'count': 'do_count'}
         splits = args.split(".")
         class_name = splits[0]
         class_name.capitalize()
@@ -171,23 +174,27 @@ class HBNBCommand(cmd.Cmd):
             elif len(elements) == 2:
                 for key, value in functs.items():
                     if key == elements[0]:
-                        funct = 'self.' + value + '("' + class_name + ' ' + elements[1] + '")'
+                        funct = 'self.' + value + '("' + class_name + ' '\
+                        + elements[1] + '")'
                         eval(funct)
             elif len(elements) >= 3:
                 # if len(elements) == 3:
                     attrs = elements[2:]
                     att = 0
                     val = 1
-                    
                     for key, value in functs.items():
                         if key == elements[0]:
                             for elems in range(len(attrs)):
-                                if diction == False:
-                                    funct = 'self.' + value + '("' + class_name + ' ' + elements[1] + ' ' + attrs[att] + ' ' + attrs[val] + '")'
+                                if diction is False:
+                                    funct = 'self.' + value + '("'\
+                                    + class_name + ' ' + elements[1] +\
+                                    ' ' + attrs[att] + ' ' + attrs[val] + '")'
                                     eval(funct)
                                     break
                                 else:
-                                    funct = 'self.' + value + '("' + class_name + ' ' + elements[1] + ' ' + attrs[att] + ' ' + attrs[val] + '")'
+                                    funct = 'self.' + value + '("'\
+                                    + class_name + ' ' + elements[1] +\
+                                    ' ' + attrs[att] + ' ' + attrs[val] + '")'
                                     eval(funct)
                                     if att + 2 < len(attrs):
                                         att += 2
@@ -196,11 +203,6 @@ class HBNBCommand(cmd.Cmd):
                                     if val + 2 < len(attrs):
                                         val += 2
 
-                # else:
-                #    new = class_name + "," + elements[1] + "," + elements[2] + "," + elements[3]
-                #    new = new.replace("'", '')
-                #    new = new.replace(",", " ")
-                #    self.do_update(new)
         else:
             print("*** Unknown syntax: {}".format(args))
 
