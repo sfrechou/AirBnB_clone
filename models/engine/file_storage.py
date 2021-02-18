@@ -3,7 +3,6 @@
 import json
 import os
 import datetime
-import ast
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -35,7 +34,7 @@ class FileStorage:
     def save(self):
         """Serializes __objects to the JSON file"""
         new_dict = self.__objects
-        for key, value in self.__objects.items():
+        for key, value in new_dict.items():
             class_name = key.split(".")
             if type(value) == str:
                 list_val = value.split()
@@ -60,7 +59,6 @@ class FileStorage:
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, 'r') as my_file:
                 one_obj_dictionary = json.load(my_file)
-                all_args = ""
                 for i, j in one_obj_dictionary.items():
                     k = eval(j)
                     del k["__class__"]
