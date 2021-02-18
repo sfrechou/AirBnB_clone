@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.review import Review
 import models
+import pep8
 
 
 class TestingReview(unittest.TestCase):
@@ -73,13 +74,36 @@ class TestingReview(unittest.TestCase):
         self.assertEqual(type(my_review11.user_id), str)
         self.assertEqual(type(my_review11.text), str)
 
-    """def test_Review10N(self):
-        self.assertEqual(Review, type(Review()))
-        self.assertEqual(str, type(Review().id))
-    def test_Review11N(self):
-        my_Review11 = Review()
-        my_Review12 = Review()
-        self.assertNotEqual(my_Review11.id, my_Review12.id)"""
+    def test_pep8(self):
+        """ppep8"""
+        style = pep8.StyleGuide(quiet=True)
+        result = style.check_files(['models/review.py'])
+        self.assertEqual(result.total_errors, 0, "fix pep8")
+
+    def test_Review12(self):
+        """Tests if the instance of BaseModel has been correctly made"""
+        my_review12 = Review()
+        self.assertTrue(hasattr(my_review12, "__init__"))
+        self.assertTrue(hasattr(my_review12, "created_at"))
+        self.assertTrue(hasattr(my_review12, "updated_at"))
+        self.assertTrue(hasattr(my_review12, "id"))
+
+    def test_Review13(self):
+        """Tests to see if each method is printing accurately"""
+        my_review13 = Review()
+        my_review13printed = my_review13.__str__()
+        self.assertEqual(my_review13printed,
+                         "[Review] ({}) {}".format(my_review13.id, my_review13.__dict__))
+
+    def test_Review14(self):
+        """Pass kwargs into the instance"""
+        my_review14 = Review(name="Denver")
+        self.assertEqual(type(my_review14).__name__, "Review")
+        self.assertTrue(hasattr(my_review14, "name"))
+        self.assertFalse(hasattr(my_review14, "id"))
+        self.assertFalse(hasattr(my_review14, "created_at"))
+        self.assertFalse(hasattr(my_review14, "updated_at"))
+        self.assertTrue(hasattr(my_review14, "__class__"))
 
 if __name__ == "__main__":
     unittest.main()
