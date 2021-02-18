@@ -1,12 +1,20 @@
 #!/usr/bin/python3
 """ Tests for FileStorage class """
 
-
-import unittest
-import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.amenity import Amenity
+from models.city import City
+from datetime import datetime
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 import models
+import os
+import sys
+import pep8
+import unittest
 
 
 class TestingFileStorage(unittest.TestCase):
@@ -48,6 +56,34 @@ class TestingFileStorage(unittest.TestCase):
         PreData9.save()
         all_objs = models.storage.all()
         self.assertIsNotNone(all_objs)
+
+    def test_all2(self):
+        """ test all """
+        PreData100 = FileStorage()
+        PreData1000 = PreData100.all()
+        self.assertIsNotNone(PreData1000)
+        self.assertEqual(type(PreData1000), dict)
+
+
+    def test_pep8(self):
+        """Pep8"""
+        style = pep8.StyleGuide(quiet=True)
+        result = style.check_files(['models/engine/file_storage.py'])
+        self.assertEqual(result.total_errors, 0, "fix pep8")
+
+    def test_reload(self):
+        """reload"""
+        temp_reload = FileStorage()
+        try:
+            os.remove("file.json")
+        except:
+            pass
+        with open("file.json", "w") as f:
+            f.write("{}")
+        with open("file.json", "r") as f:
+            for item in f:
+                self.assertEqual(item, "{}")
+        self.assertIs(temp_reload.reload(), None)
 
 if __name__ == "__main__":
     unittest.main()
