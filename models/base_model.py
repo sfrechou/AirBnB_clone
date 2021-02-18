@@ -3,7 +3,7 @@
 import uuid
 import datetime
 import csv
-from models import storage
+import models
 
 
 class BaseModel:
@@ -25,7 +25,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """Returns string representation"""
@@ -35,7 +35,7 @@ class BaseModel:
     def save(self):
         """Updates the public instance attr with current datetime"""
         self.updated_at = datetime.datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """Returns a dictionary containing all keys/values of __dict__"""
