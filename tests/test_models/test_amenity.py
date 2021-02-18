@@ -7,6 +7,7 @@ from models.engine.file_storage import FileStorage
 from models.user import User
 from models.amenity import Amenity
 import models
+import pep8
 
 
 class TestingAmenity(unittest.TestCase):
@@ -78,6 +79,27 @@ class TestingAmenity(unittest.TestCase):
         """ Test of the city class """
         self.assertEqual(Amenity, type(Amenity()))
         self.assertEqual(str, type(Amenity().id))
+
+    def test_Amenity13(self):
+        """pep8 test amenity"""
+        style = pep8.StyleGuide(quiet=True)
+        result = style.check_files(['models/amenity.py'])
+        self.assertEqual(result.total_errors, 0, "fix pep8")
+
+    def test_Amenity14(self):
+        """Tests amenity"""
+        my_amenity14 = Amenity()
+        my_amenity14printed = my_amenity14.__str__()
+        self.assertEqual(my_amenity14printed,
+                         "[Amenity] ({}) {}".format(my_amenity14.id, my_amenity14.__dict__))
+
+    def test_hasattribute(self):
+        """Tests amenity"""
+        my_amenity15 = Amenity()
+        self.assertTrue(hasattr(my_amenity15, "__init__"))
+        self.assertTrue(hasattr(my_amenity15, "created_at"))
+        self.assertTrue(hasattr(my_amenity15, "updated_at"))
+        self.assertTrue(hasattr(my_amenity15, "id"))
 
 if __name__ == "__main__":
     unittest.main()
