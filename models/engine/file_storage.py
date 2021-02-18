@@ -4,7 +4,13 @@ import json
 import os
 import datetime
 import ast
-
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 class FileStorage:
     """
@@ -56,7 +62,8 @@ class FileStorage:
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
-        if os.path.isfile(self.__file_path):
+        # if os.path.isfile(self.__file_path):
+        try:
             with open(self.__file_path, 'r') as my_file:
                 one_obj_dictionary = json.load(my_file)
                 for i, j in one_obj_dictionary.items():
@@ -66,5 +73,6 @@ class FileStorage:
                     new_id = i.split(".")
                     new = "[" + new_id[0] + "] (" + new_id[1] + ")"
                     self.__objects[i] = new + " " + j
-        else:
-            return
+                    # self.new(eval(new_id[0])(**k))
+        except FileNotFoundError:
+            pass
