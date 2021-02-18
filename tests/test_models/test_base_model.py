@@ -41,7 +41,7 @@ class TestingBaseModel(unittest.TestCase):
         PreData8.my_number = 9
         old_date = PreData8.created_at
         PreData8.save()
-        self.assertEqual(str(old_date), PreData8.created_at)
+        self.assertEqual(old_date, PreData8.created_at)
 
     def test_to_Dict1(self):
         """ Test of the to_dict func """
