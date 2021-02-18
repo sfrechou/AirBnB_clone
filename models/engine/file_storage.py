@@ -3,6 +3,7 @@
 import json
 import os
 import datetime
+import ast
 
 
 class FileStorage:
@@ -34,10 +35,24 @@ class FileStorage:
         """Serializes __objects to the JSON file"""
         new_dict = {}
         for key, value in self.__objects.items():
-            new_dict[key] = str(value)
+            class_name = key.split(".")
+            if type(value) == str:
+                list_val = value.split()
+                del list_val[:2]
+                new_str = ""
+                for ele in list_val:
+                    new_str += ele
+            else:
+                value["__class__"] = class_name[0]
+                new_dict[key] = str(value)
 
         with open(FileStorage.__file_path, "w") as my_file:
             json.dump(new_dict, my_file)
+        
+        for key, value in self.__objects.items():
+            if type(value) == dict:
+                del value["__class__"]
+        
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
@@ -45,6 +60,9 @@ class FileStorage:
             with open(self.__file_path, 'r') as my_file:
                 one_obj_dictionary = json.load(my_file)
                 for i, j in one_obj_dictionary.items():
+                    k = eval(j)
+                    del k["__class__"]
+                    j = str(k)
                     new_id = i.split(".")
                     new = "[" + new_id[0] + "] (" + new_id[1] + ")"
                     self.__objects[i] = new + " " + j
