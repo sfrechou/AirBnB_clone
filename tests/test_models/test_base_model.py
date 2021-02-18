@@ -6,6 +6,7 @@ import unittest
 import datetime
 from models.base_model import BaseModel
 from time import sleep
+import pep8
 
 
 class TestingBaseModel(unittest.TestCase):
@@ -140,6 +141,23 @@ class TestingBaseModel(unittest.TestCase):
         my_base23id = "BaseModel." + my_base23.id
         with open("file.json", "r") as f:
             self.assertIn(my_base23id, f.read())
+
+    def test_SaveN7(self):
+        """kwargs"""
+        my_base24 = BaseModel(name="Denver")
+        self.assertEqual(type(my_base24).__name__, "BaseModel")
+        self.assertTrue(hasattr(my_base24, "name"))
+        self.assertTrue(hasattr(my_base24, "__class__"))
+        self.assertFalse(hasattr(my_base24, "id"))
+        self.assertFalse(hasattr(my_base24, "created_at"))
+        self.assertFalse(hasattr(my_base24, "updated_at"))
+
+    def test_str_method(self):
+        """str"""
+        my_base25 = BaseModel()
+        my_base25printed = my_base25.__str__()
+        self.assertEqual(my_base25printed,
+                         "[BaseModel] ({}) {}".format(my_base25.id, my_base25.__dict__))
 
 if __name__ == "__main__":
     unittest.main()
