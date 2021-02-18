@@ -49,14 +49,16 @@ class TestingBaseModel(unittest.TestCase):
         self.assertEqual(PreData9.to_dict()["updated_at"],
                          PreData9.updated_at.isoformat())
 
-    def test_SaveN1(self):
+    @classmethod
+    def setUp(self):
         """ Test of the save func """
         try:
             os.rename("file.json", "puedesergio")
         except IOError:
             pass
 
-    def test_SaveN2(self):
+    @classmethod
+    def tearDown(self):
         """ Test of the save func """
         try:
             os.remove("file.json")
