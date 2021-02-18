@@ -34,9 +34,8 @@ class FileStorage:
         """Serializes __objects to the JSON file"""
         new_dict = {}
         for key, value in self.__objects.items():
-            value["created_at"] = str(value["created_at"])
-            value["updated_at"] = str(value["updated_at"])
-            new_dict[key] = value
+            new_dict[key] = str(value)
+
         with open(FileStorage.__file_path, "w") as my_file:
             json.dump(new_dict, my_file)
 

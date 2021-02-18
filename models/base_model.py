@@ -44,7 +44,7 @@ class BaseModel:
         for key, value in self.__dict__.items():
             if key == "created_at" or key == "updated_at":
                 formatx = "%Y-%m-%dT%H:%M:%S.%f"
-                dict_returned[key] = value
+                dict_returned[key] = value.strftime(formatx)
             else:
                 dict_returned[key] = value
         return (dict_returned)
