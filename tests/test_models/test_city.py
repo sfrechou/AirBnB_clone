@@ -69,11 +69,5 @@ class TestingCity(unittest.TestCase):
         my_city12 = City()
         self.assertNotEqual(my_city11.id, my_city12.id)
 
-    def test_pep8(self):
-        """pep8"""
-        style = pep8.StyleGuide(quiet=True)
-        result = style.check_files(['models/city.py'])
-        self.assertEqual(result.total_errors, 0, "fix pep8")
-
 if __name__ == "__main__":
     unittest.main()
