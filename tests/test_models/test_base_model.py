@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 """ Tests for BaseModel class """
-
-
+import os
+import models
 import unittest
 import datetime
 from models.base_model import BaseModel
+from time import sleep
 
 
 class TestingBaseModel(unittest.TestCase):
@@ -34,15 +35,6 @@ class TestingBaseModel(unittest.TestCase):
         PreData7.save()
         self.assertNotEqual(PreData7.created_at, PreData7.updated_at)
 
-    def test_Save2(self):
-        """ Test of the Save func """
-        PreData8 = BaseModel()
-        PreData8.name = "Erling"
-        PreData8.my_number = 9
-        old_date = PreData8.created_at
-        PreData8.save()
-        self.assertEqual(str(old_date), PreData8.created_at)
-
     def test_to_Dict1(self):
         """ Test of the to_dict func """
         PreData9 = BaseModel()
@@ -56,6 +48,58 @@ class TestingBaseModel(unittest.TestCase):
                          PreData9.created_at.isoformat())
         self.assertEqual(PreData9.to_dict()["updated_at"],
                          PreData9.updated_at.isoformat())
+
+    def test_SaveN1(self):
+        """ Test of the save func """
+        try:
+            os.rename("file.json", "puedesergio")
+        except IOError:
+            pass
+
+    def test_SaveN2(self):
+        """ Test of the save func """
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("puedesergio", "file.json")
+        except IOError:
+            pass
+
+    def test_SaveN3(self):
+        """ Test of the save func """
+        my_base20 = BaseModel()
+        sleep(0.05)
+        first_updated_at = my_base20.updated_at
+        my_base20.save()
+        self.assertLess(first_updated_at, my_base20.updated_at)
+
+    def test_SaveN4(self):
+        """ Test of the save func """
+        my_base21 = BaseModel()
+        sleep(0.05)
+        first_updated_at = my_base21.updated_at
+        my_base21.save()
+        second_updated_at = my_base21.updated_at
+        self.assertLess(first_updated_at, second_updated_at)
+        sleep(0.05)
+        my_base21.save()
+        self.assertLess(second_updated_at, my_base21.updated_at)
+
+    def test_SaveN5(self):
+        """ Test of the save func """
+        my_base22 = BaseModel()
+        with self.assertRaises(TypeError):
+            my_base22.save(None)
+
+    def test_SaveN6(self):
+        """ Test of the save func """
+        my_base23 = BaseModel()
+        my_base23.save()
+        my_base23id = "BaseModel." + my_base23.id
+        with open("file.json", "r") as f:
+            self.assertIn(my_base23id, f.read())
 
 if __name__ == "__main__":
     unittest.main()
