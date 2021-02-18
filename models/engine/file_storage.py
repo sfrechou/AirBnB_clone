@@ -28,23 +28,22 @@ class FileStorage:
         # obj.__dict__["updated_at"] = str(obj.__dict__["created_at"])
         # obj.__dict__["created_at"] = str(obj.__dict__["created_at"]
         self.__objects[str(obj.__class__.__name__) +
-                       "." + obj.id] = obj
+                       "." + obj.id] = obj.__dict__
 
     def save(self):
         """Serializes __objects to the JSON file"""
-        dict_of_dicts = {}
+        new_dict = {}
         for key, value in self.__objects.items():
-            dict_of_dicts[key] = value.to_dict()
+            new_dict[key] = str(value)
 
         with open(FileStorage.__file_path, "w") as my_file:
-            json.dump(dict_of_dicts, my_file)
+            json.dump(new_dict, my_file)
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, 'r') as my_file:
                 one_obj_dictionary = json.load(my_file)
-
                 for key, value in one_obj_dictionary.items():
                     self.__objects[key] = value
         else:

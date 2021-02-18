@@ -11,16 +11,15 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Initializes object"""
+        now = str(datetime.datetime.now())
+        now = datetime.datetime.strptime(now, "%Y-%m-%d %H:%M:%S.%f")
         if kwargs:
             for key, value in kwargs.items():
                 if key != "__class__":
-                    formatx = "%Y-%m-%dT%H:%M:%S.%f"
                     if key == "created_at":
-                        self.__dict__[key] = datetime.datetime.\
-                                             strptime(value, formatx)
+                        value = now
                     if key == "updated_at":
-                        self.__dict__[key] = datetime.datetime.\
-                                             strptime(value, formatx)
+                        value = now
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
@@ -35,16 +34,17 @@ class BaseModel:
 
     def save(self):
         """Updates the public instance attr with current datetime"""
-        new_time = datetime.datetime.now()
-        self.updated_at = new_time
+        self.updated_at = datetime.datetime.now()
         storage.save()
 
     def to_dict(self):
         """Returns a dictionary containing all keys/values of __dict__"""
         dict_returned = {}
-        for key, value in self.__dict__.items():
-            dict_returned[key] = value
         dict_returned["__class__"] = self.__class__.__name__
-        dict_returned["created_at"] = self.created_at.isoformat()
-        dict_returned["updated_at"] = self.updated_at.isoformat()
+        for key, value in self.__dict__.items():
+            if key == "created_at" or key == "updated_at":
+                formatx = "%Y-%m-%dT%H:%M:%S.%f"
+                dict_returned[key] = value.strftime(formatx)
+            else:
+                dict_returned[key] = value
         return (dict_returned)
