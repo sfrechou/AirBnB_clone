@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.state import State
 import models
+import pep8
 
 
 class TestingState(unittest.TestCase):
@@ -61,9 +62,38 @@ class TestingState(unittest.TestCase):
         my_state12 = State()
         self.assertNotEqual(my_state11.id, my_state12.id)
 
-    """def test_State10N(self):
-        self.assertEqual(State, type(State()))
-        self.assertEqual(str, type(State().id))"""
+    def test_pep8(self):
+        """pepe8"""
+        style = pep8.StyleGuide(quiet=True)
+        result = style.check_files(['models/state.py'])
+        self.assertEqual(result.total_errors, 0, "fix pep8")
+
+    def test_str_method(self):
+        """str"""
+        my_state14 = State()
+        my_state14printed = my_state14.__str__()
+        self.assertEqual(my_state14printed,
+                         "[State] ({}) {}".format(my_state14.id, my_state14.__dict__))
+
+    def test_State12(self):
+        """Tests if the instance of BaseModel has been correctly made"""
+        my_state15 = State()
+        self.assertTrue(hasattr(my_state15, "__init__"))
+        self.assertTrue(hasattr(my_state15, "created_at"))
+        self.assertTrue(hasattr(my_state15, "updated_at"))
+        self.assertTrue(hasattr(my_state15, "id"))
+
+
+
+    def test_State11(self):
+        """kwargs"""
+        my_state13 = State(name="California")
+        self.assertEqual(type(my_state13).__name__, "State")
+        self.assertTrue(hasattr(my_state13, "name"))
+        self.assertFalse(hasattr(my_state13, "id"))
+        self.assertFalse(hasattr(my_state13, "created_at"))
+        self.assertFalse(hasattr(my_state13, "updated_at"))
+        self.assertTrue(hasattr(my_state13, "__class__"))
 
 if __name__ == "__main__":
     unittest.main()
