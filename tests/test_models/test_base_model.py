@@ -69,6 +69,19 @@ class TestingBaseModel(unittest.TestCase):
         self.assertEqual(str, type(PreData33_dict["created_at"]))
         self.assertEqual(str, type(PreData33_dict["updated_at"]))
 
+    def test_to_Dict6(self):
+        dt = datetime.datetime.now()
+        bm = BaseModel()
+        bm.id = "123456"
+        bm.created_at = bm.updated_at = dt
+        tdict = {
+            'id': '123456',
+            '__class__': 'BaseModel',
+            'created_at': dt.isoformat(),
+            'updated_at': dt.isoformat()
+        }
+        self.assertDictEqual(bm.to_dict(), tdict)
+
     @classmethod
     def setUp(self):
         """ Test of the save func """
