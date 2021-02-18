@@ -7,6 +7,7 @@ from models.engine.file_storage import FileStorage
 from models.user import User
 from models.place import Place
 import models
+import pep8
 
 
 class TestingPlace(unittest.TestCase):
@@ -108,6 +109,30 @@ class TestingPlace(unittest.TestCase):
     def test_Place13(self):
         self.assertEqual(Place, type(Place()))
         self.assertEqual(str, type(Place().id))
+
+    def test_pep8(self):
+        """test pep8 comes back clean"""
+        style = pep8.StyleGuide(quiet=True)
+        result = style.check_files(['models/place.py'])
+        self.assertEqual(result.total_errors, 0, "fix pep8")
+
+    def test_Place14(self):
+        """Tests if the instance of BaseModel has been correctly made"""
+        my_place14 = Place()
+        self.assertTrue(hasattr(my_place14, "__init__"))
+        self.assertTrue(hasattr(my_place14, "created_at"))
+        self.assertTrue(hasattr(my_place14, "updated_at"))
+        self.assertTrue(hasattr(my_place14, "id"))
+
+    def test_init_kwarg(self):
+        """Pass kwargs into the instance"""
+        my_place15 = Place(name="Denver")
+        self.assertEqual(type(my_place15).__name__, "Place")
+        self.assertTrue(hasattr(my_place15, "name"))
+        self.assertFalse(hasattr(my_place15, "id"))
+        self.assertFalse(hasattr(my_place15, "created_at"))
+        self.assertFalse(hasattr(my_place15, "updated_at"))
+        self.assertTrue(hasattr(my_place15, "__class__"))
 
 if __name__ == "__main__":
     unittest.main()
