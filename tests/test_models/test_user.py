@@ -71,5 +71,29 @@ class TestingUser(unittest.TestCase):
         my_user11 = User()
         self.assertEqual(str(type(my_user11.id)), "<class 'str'>")
 
+    def test_User11(self):
+        my_user12 = User()
+        self.assertTrue(hasattr(my_user12, "__init__"))
+        self.assertTrue(hasattr(my_user12, "created_at"))
+        self.assertTrue(hasattr(my_user12, "updated_at"))
+        self.assertTrue(hasattr(my_user12, "id"))
+
+    def test_User12(self):
+        """Tests to see if each method is printing accurately"""
+        my_user13 = User()
+        my_user13printed = my_user13.__str__()
+        self.assertEqual(my_user13printed,
+                         "[User] ({}) {}".format(my_user13.id, my_user13.__dict__))
+
+    def test_init_kwarg(self):
+        """Pass kwargs into the instance"""
+        my_user14 = User(name="Silver")
+        self.assertEqual(type(my_user14).__name__, "User")
+        self.assertTrue(hasattr(my_user14, "name"))
+        self.assertFalse(hasattr(my_user14, "id"))
+        self.assertFalse(hasattr(my_user14, "created_at"))
+        self.assertFalse(hasattr(my_user14, "updated_at"))
+        self.assertTrue(hasattr(my_user14, "__class__"))
+
 if __name__ == "__main__":
     unittest.main()
