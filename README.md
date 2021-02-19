@@ -29,7 +29,7 @@ What’s a command interpreter?
 The command interpreter is the program that receives what is written in the terminal and converts it into instructions for the operating system. In this case, we create our own command interpreter for the functions that we need for the correct functioning of our Airbnb clone.
 
 ## 01. Installation instructions:
-[Clone repository](https://github.com/sfrechou/AirBnB_clone)
+[Clone repository](https://github.com/facu2279/AirBnB_clone)
 
 ## Technical Characteristics
 * Written in Python3
@@ -125,24 +125,24 @@ The console also accepts the following usage for the previous commands:
 - AUTHORS
 
 ## 05. Copyright and licencing information
-Made by [Soledad Frechou](https://github.com/sfrechou)
-and [Julián Arbini](https://github.com/julianarbini97)
+Made by [Facundo Diaz](https://github.com/facu2279)
+and [Tomas De Castro](https://github.com/tomi1710)
 for Holberton School end of 2nd trimester project - 2021
 
 ## 06. Contact information for the programmers
 #### Soledad Frechou:
-- [Linkedin](https://www.linkedin.com/in/soledad-frechou-361a5b54/)
-- [email](soledad.frechou@holbertonschool.com)
+- [Linkedin](https://www.linkedin.com/in/facundo-d%C3%ADaz-720110149//)
+- [Email](2142@holbertonschool.com)
 
 #### Julián Arbini:
-- [Linkedin](https://www.linkedin.com/in/julian-arbini-9ba744b3/)
-- [email](julian.arbini@holbertonschool.com)
+- [Linkedin](https://www.linkedin.com/)
+- [Email](1890@holbertonschool.com)
 
 ## 07. Known bugs
 This project is still in under construction, therefore bugs may be present. If you find any, you're welcome to let us know :)
 
 ## 08. Troubleshooting
-* Unittests available [here](https://github.com/sfrechou/AirBnB_clone/tree/main/tests) in case of errors.
+* Unittests available [here](https://github.com/facu2279/AirBnB_clone/tree/main/tests) in case of errors.
 * All tests can be executed with the following command:
 ```
 python3 -m unittest discover tests

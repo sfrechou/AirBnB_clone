@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" console time """
+""" Console for the airbnb program """
 import cmd
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
@@ -20,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
                "Amenity", "Place", "Review"]
 
     def do_EOF(self, args):
-        """ exit the program """
+        """ Exit the program """
         print()
         return True
 
@@ -132,12 +132,11 @@ class HBNBCommand(cmd.Cmd):
             return
         for key, value in storage.all().items():
             if key == key_search:
-                new_value = value.__dict__
-                for key2 in new_value.keys():
+                for key2 in value.keys():
                     if key2 == i[2]:
-                        new_value[key2] = i[3].strip('"')
+                        value[key2] = i[3].strip('"')
                         return
-                new_value[i[2]] = i[3].strip('"')
+                value[i[2]] = i[3].strip('"')
                 return
 
     def do_count(self, args):
@@ -175,8 +174,7 @@ class HBNBCommand(cmd.Cmd):
             elif len(elements) == 2:
                 for key, value in functs.items():
                     if key == elements[0]:
-                        funct = 'self.' + value +\
-                                '("' + class_name + ' '\
+                        funct = 'self.' + value + '("' + class_name + ' '\
                                 + elements[1] + '")'
                         eval(funct)
             elif len(elements) >= 3:
@@ -184,21 +182,21 @@ class HBNBCommand(cmd.Cmd):
                     attrs = elements[2:]
                     att = 0
                     val = 1
+                    s = 'self.'
+                    e = ' '
                     for key, value in functs.items():
                         if key == elements[0]:
                             for elems in range(len(attrs)):
                                 if diction is False:
-                                    funct = 'self.' + value + '("'\
-                                            + class_name + ' ' + elements[1] +\
-                                            ' ' + attrs[att] + ' '\
-                                            + attrs[val] + '")'
+                                    funct = s + value + '("' + class_name + e\
+                                            + elements[1] + e + attrs[att]\
+                                            + e + attrs[val] + '")'
                                     eval(funct)
                                     break
                                 else:
-                                    funct = 'self.' + value + '("'\
-                                            + class_name + ' ' + elements[1] +\
-                                            ' ' + attrs[att] + ' '\
-                                            + attrs[val] + '")'
+                                    funct = s + value + '("' + class_name\
+                                            + e + elements[1] + e + attrs[att]\
+                                            + e + attrs[val] + '")'
                                     eval(funct)
                                     if att + 2 < len(attrs):
                                         att += 2
