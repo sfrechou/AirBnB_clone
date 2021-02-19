@@ -1,7 +1,7 @@
 ![alt text](https://raw.github.com/facu2279/AirBnB_clone/main/airbnbimage.png)
 # 0x00. AirBnB clone - The console
 
-## 0. Background and context
+## 00. Background and context
 Introduction
 -----------------------
 First part of three to create a full web application, an **AirBnb clone**.
@@ -28,7 +28,7 @@ What’s a command interpreter?
 -----------------------
 The command interpreter is the program that receives what is written in the terminal and converts it into instructions for the operating system. In this case, we create our own command interpreter for the functions that we need for the correct functioning of our Airbnb clone.
 
-## Installation instructions:
+## 01. Installation instructions:
 [Clone repository](https://github.com/sfrechou/AirBnB_clone)
 
 ## Technical Characteristics
@@ -37,7 +37,7 @@ The command interpreter is the program that receives what is written in the term
 * Console created with the module [cmd](https://docs.python.org/3.4/library/cmd.html)
 * Tested with the [unittest module](https://intranet.hbtn.io/rltoken/QX7d4D__xhOJIGIWZBp39g)
 
-## Operation instructions:
+## 02. Operation instructions:
 How to use the interpreter?
 -----------------------
 
@@ -62,7 +62,7 @@ EOF  all  create  destroy  help  quit  show  update
 (hbnb)
 ```
 
-## Usage
+## 03. Usage
 Here is an example of how to use our console
 -----------------------
 ```
@@ -94,7 +94,7 @@ The console also accepts the following usage for the previous commands:
 * `<class name>.update(<id>, <attribute name>, <attribute value>)`
 * `<class name>.update(<id>, <dictionary representation>)`
 
-## File Manifest:
+## 04. File Manifest:
 - models
     - engine
         - __init__.py
@@ -124,12 +124,12 @@ The console also accepts the following usage for the previous commands:
 - README.md
 - AUTHORS
 
-## Copyright and licencing information
+## 05. Copyright and licencing information
 Made by [Soledad Frechou](https://github.com/sfrechou)
 and [Julián Arbini](https://github.com/julianarbini97)
 for Holberton School end of 2nd trimester project - 2021
 
-## Contact information for the programmers
+## 06. Contact information for the programmers
 #### Soledad Frechou:
 - [Linkedin](https://www.linkedin.com/in/soledad-frechou-361a5b54/)
 - [email](soledad.frechou@holbertonschool.com)
@@ -138,10 +138,10 @@ for Holberton School end of 2nd trimester project - 2021
 - [Linkedin](https://www.linkedin.com/in/julian-arbini-9ba744b3/)
 - [email](julian.arbini@holbertonschool.com)
 
-## Known bugs
+## 07. Known bugs
 This project is still in under construction, therefore bugs may be present. If you find any, you're welcome to let us know :)
 
-## Troubleshooting
+## 08. Troubleshooting
 * Unittests available [here](https://github.com/sfrechou/AirBnB_clone/tree/main/tests) in case of errors.
 * All tests can be executed with the following command:
 ```
