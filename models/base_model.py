@@ -7,24 +7,33 @@ import models
 
 
 class BaseModel:
-    """Defines all common attributes/methods for other classes"""
-
+    """ class for all other classes to inherit from """
     def __init__(self, *args, **kwargs):
-        """Initializes object"""
-        now = str(datetime.now())
-        now = datetime.strptime(now, "%Y-%m-%d %H:%M:%S.%f")
-        if kwargs:
+        """ Constructor and re-create an instance with
+        this dictionary representation"""
+        if len(kwargs) > 0:
+            # each key of this dictionary is an attribute name
+            # each value of this dictionary is the value of this attribute name
             for key, value in kwargs.items():
-                if key != "__class__":
-                    if key == "created_at":
-                        value = now
-                    if key == "updated_at":
-                        value = now
-                    setattr(self, key, value)
+                if key == "updated_at":
+                    # Convert string date to datetime object
+                    # strptime (string parse time): Parse a string into a -
+                    # datetime object given a corresponding format
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == "created_at":
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == "__class__":
+                    # This happens because __class__ is not mandatory in output
+                    continue
+
+                setattr(self, key, value)
         else:
+            # Generate a random UUID
             self.id = str(uuid.uuid4())
+            # assign with the current datetime when an instance is created
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            # if it’s a new instance add a call to the method new(self) on stge
             models.storage.new(self)
 
     def __str__(self):
