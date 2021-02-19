@@ -24,7 +24,7 @@ class FileStorage:
         # obj.__dict__["updated_at"] = str(obj.__dict__["created_at"])
         # obj.__dict__["created_at"] = str(obj.__dict__["created_at"])
         self.__objects[str(obj.__class__.__name__) +
-                       "." + str(obj.id)] = obj.__dict__
+                       "." + obj.id] = obj.__dict__
 
     def save(self):
         """serializes __objects to a JSON path from __file_path
