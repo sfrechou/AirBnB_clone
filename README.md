@@ -130,13 +130,11 @@ and [Julián Arbini](https://github.com/julianarbini97)
 for Holberton School end of 2nd trimester project - 2021
 
 ## Contact information for the programmers
-Soledad Frechou
--------------------
+#### Soledad Frechou:
 - [Linkedin](https://www.linkedin.com/in/soledad-frechou-361a5b54/)
 - [email](soledad.frechou@holbertonschool.com)
 
-Julián Arbini
--------------------
+#### Julián Arbini:
 - [Linkedin](https://www.linkedin.com/in/julian-arbini-9ba744b3/)
 - [email](julian.arbini@holbertonschool.com)
 
