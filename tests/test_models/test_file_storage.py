@@ -64,7 +64,6 @@ class TestingFileStorage(unittest.TestCase):
         self.assertIsNotNone(PreData1000)
         self.assertEqual(type(PreData1000), dict)
 
-
     def test_pep8(self):
         """Pep8"""
         style = pep8.StyleGuide(quiet=True)

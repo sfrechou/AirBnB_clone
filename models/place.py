@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-""" User module """
+""" Place module """
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
     """ Place of the AirBnB """
+
     city_id = ""
     user_id = ""
     name = ""

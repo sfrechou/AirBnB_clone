@@ -84,7 +84,8 @@ class TestingUser(unittest.TestCase):
         my_user13 = User()
         my_user13printed = my_user13.__str__()
         self.assertEqual(my_user13printed,
-                         "[User] ({}) {}".format(my_user13.id, my_user13.__dict__))
+                         "[User] ({}) {}".format(my_user13.id,
+                                                 my_user13.__dict__))
 
     def test_init_kwargs(self):
         """instance with kwargs"""

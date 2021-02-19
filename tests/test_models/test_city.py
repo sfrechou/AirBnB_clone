@@ -90,7 +90,8 @@ class TestingCity(unittest.TestCase):
         my_city14 = City()
         my_city14printed = my_city14.__str__()
         self.assertEqual(my_city14printed,
-                         "[City] ({}) {}".format(my_city14.id, my_city14.__dict__))
+                         "[City] ({}) {}".format(my_city14.id,
+                                                 my_city14.__dict__))
 
     def test_City15N(self):
         """Tests """

@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-"""raja de aca"""
+"""Module for FileStorage class"""
 import json
 import os
 import datetime
 from models.base_model import BaseModel
+
 
 class FileStorage:
     """
@@ -29,7 +30,8 @@ class FileStorage:
         all_dict = FileStorage.__objects
         with open(FileStorage.__file_path, 'w') as my_file:
             for value in all_dict.values():
-                ser_dict["{}.{}".format(value.__class__.__name__, value.id)] = value.to_dict()
+                ser_dict["{}.{}".format(value.__class__.__name__,
+                                        value.id)] = value.to_dict()
             json.dump(ser_dict, my_file)
 
     def reload(self):

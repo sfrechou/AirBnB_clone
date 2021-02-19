@@ -175,8 +175,9 @@ class HBNBCommand(cmd.Cmd):
             elif len(elements) == 2:
                 for key, value in functs.items():
                     if key == elements[0]:
-                        funct = 'self.' + value + '("' + class_name + ' '\
-                        + elements[1] + '")'
+                        funct = 'self.' + value +\
+                                '("' + class_name + ' '\
+                                + elements[1] + '")'
                         eval(funct)
             elif len(elements) >= 3:
                 # if len(elements) == 3:
@@ -188,14 +189,16 @@ class HBNBCommand(cmd.Cmd):
                             for elems in range(len(attrs)):
                                 if diction is False:
                                     funct = 'self.' + value + '("'\
-                                    + class_name + ' ' + elements[1] +\
-                                    ' ' + attrs[att] + ' ' + attrs[val] + '")'
+                                            + class_name + ' ' + elements[1] +\
+                                            ' ' + attrs[att] + ' '\
+                                            + attrs[val] + '")'
                                     eval(funct)
                                     break
                                 else:
                                     funct = 'self.' + value + '("'\
-                                    + class_name + ' ' + elements[1] +\
-                                    ' ' + attrs[att] + ' ' + attrs[val] + '")'
+                                            + class_name + ' ' + elements[1] +\
+                                            ' ' + attrs[att] + ' '\
+                                            + attrs[val] + '")'
                                     eval(funct)
                                     if att + 2 < len(attrs):
                                         att += 2

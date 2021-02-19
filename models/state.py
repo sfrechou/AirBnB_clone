@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-""" User module """
+""" State module """
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
     """ State of the AirBnB """
+
     name = ""

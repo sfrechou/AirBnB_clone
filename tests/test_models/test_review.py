@@ -93,7 +93,8 @@ class TestingReview(unittest.TestCase):
         my_review13 = Review()
         my_review13printed = my_review13.__str__()
         self.assertEqual(my_review13printed,
-                         "[Review] ({}) {}".format(my_review13.id, my_review13.__dict__))
+                         "[Review] ({}) {}".format(my_review13.id,
+                                                   my_review13.__dict__))
 
     def test_Review14(self):
         """Pass kwargs into the instance"""
