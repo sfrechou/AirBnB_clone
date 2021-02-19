@@ -3,7 +3,7 @@
 import json
 import os
 import datetime
-
+from models.base_model import BaseModel
 
 class FileStorage:
     """
@@ -22,16 +22,15 @@ class FileStorage:
         """Sets in __objects the obj with key <obj class name>.id"""
         # obj.__dict__["updated_at"] = str(obj.__dict__["created_at"])
         # obj.__dict__["created_at"] = str(obj.__dict__["created_at"])
-        self.__objects[str(obj.__class__.__name__) +
-                       "." + obj.id] = obj.__dict__
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.__objects[key] = obj
 
     def save(self):
         """serializes __objects to a JSON path from __file_path
         """
         new_dict = {}
         for key, value in self.__objects.items():
-            new_dict[key] = str(value)
-
+            new_dict[key] = value.to_dict()
         with open(FileStorage.__file_path, 'w') as filee:
             json.dump(new_dict, filee)
 
@@ -41,6 +40,8 @@ class FileStorage:
             with open(self.__file_path, 'r') as my_file:
                 one_obj_dictionary = json.load(my_file)
                 for key, value in one_obj_dictionary.items():
-                    self.__objects[key] = value
-        else:
-            return
+                    k = key.split('.')
+                    # search "__class__": "BaseModel"
+                    class_name = k[0]
+                    # set in __objects the key, value
+                    self.new(eval("{}".format(class_name))(**value))
