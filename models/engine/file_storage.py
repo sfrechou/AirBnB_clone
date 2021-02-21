@@ -3,6 +3,13 @@
 import json
 import os
 import datetime
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -23,16 +30,16 @@ class FileStorage:
         # obj.__dict__["updated_at"] = str(obj.__dict__["created_at"])
         # obj.__dict__["created_at"] = str(obj.__dict__["created_at"])
         self.__objects[str(obj.__class__.__name__) +
-                       "." + obj.id] = obj.__dict__
+                       "." + obj.id] = obj
 
     def save(self):
         """serializes __objects to a JSON path from __file_path
         """
         new_dict = {}
         for key, value in self.__objects.items():
-            new_dict[key] = str(value)
+            new_dict[key] = value.to_dict()
 
-        with open(FileStorage.__file_path, 'w') as filee:
+        with open(self.__file_path, 'w') as filee:
             json.dump(new_dict, filee)
 
     def reload(self):
@@ -41,6 +48,8 @@ class FileStorage:
             with open(self.__file_path, 'r') as my_file:
                 one_obj_dictionary = json.load(my_file)
                 for key, value in one_obj_dictionary.items():
-                    self.__objects[key] = value
+                    key_name = key.split('.')
+                    name_class = key_name[0]
+                    self.new(eval("{}".format(name_class))(**value))
         else:
             return

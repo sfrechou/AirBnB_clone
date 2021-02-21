@@ -132,11 +132,12 @@ class HBNBCommand(cmd.Cmd):
             return
         for key, value in storage.all().items():
             if key == key_search:
-                for key2 in value.keys():
+                new_value = value.__dict__
+                for key2 in new_value.keys():
                     if key2 == i[2]:
-                        value[key2] = i[3].strip('"')
+                        new_value[key2] = i[3].strip('"')
                         return
-                value[i[2]] = i[3].strip('"')
+                new_value[i[2]] = i[3].strip('"')
                 return
 
     def do_count(self, args):
