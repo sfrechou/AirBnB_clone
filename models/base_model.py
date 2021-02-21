@@ -11,15 +11,13 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Initializes object"""
-        now = str(datetime.now())
-        now = datetime.strptime(now, "%Y-%m-%d %H:%M:%S.%f")
         if kwargs:
             for key, value in kwargs.items():
                 if key != "__class__":
                     if key == "created_at":
-                        value = now
+                        value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                     if key == "updated_at":
-                        value = now
+                        value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
